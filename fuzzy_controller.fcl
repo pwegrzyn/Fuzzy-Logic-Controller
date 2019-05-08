@@ -1,0 +1,105 @@
+FUNCTION_BLOCK
+
+VAR_INPUT
+horizontalDistanceToMob : REAL;
+verticalPositionOfMob : REAL;
+verticalPositionOfWizard : REAL;
+END_VAR
+
+VAR_OUTPUT
+verticalSpeed : REAL;
+END_VAR
+
+FUZZIFY horizontalDistanceToMob
+TERM small := trian -1 50 100;
+TERM medium := trian 50 100 150;
+TERM big := trian 100 150 200;
+END_FUZZIFY
+
+FUZZIFY verticalPositionOfWizard
+TERM veryTop := (0, 1) (25, 0);
+TERM top := trian 0 25 50;
+TERM middle := trian 25 50 75;
+TERM bottom := trian 50 75 100;
+TERM veryBottom := (75, 0) (100, 1);
+END_FUZZIFY
+
+FUZZIFY verticalPositionOfMob
+TERM veryTop := (0, 1) (25, 0);
+TERM top := trian 0 25 50;
+TERM middle := trian 25 50 75;
+TERM bottom := trian 50 75 100;
+TERM veryBottom := (75, 0) (100, 1);
+END_FUZZIFY
+
+DEFUZZIFY verticalSpeed
+TERM negativeBig := (-100, 1) (-50, 0);
+TERM negative := trian -100 -50 0;
+TERM zero := trian -50 0 50;
+TERM positive := trian 0 50 100;
+TERM positiveBig := (50, 0) (100, 1);
+ACCU : MAX;
+METHOD : COG;
+DEFAULT := 0;
+END_DEFUZZIFY
+
+RULEBLOCK first
+AND: MIN;
+
+RULE 0: IF horizontalDistanceToMob IS big THEN verticalSpeed IS zero;
+
+RULE 1: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS positive;
+RULE 2: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS top THEN verticalSpeed IS negative;
+RULE 3: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS middle THEN verticalSpeed IS zero;
+RULE 4: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS bottom THEN verticalSpeed IS zero;
+RULE 5: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
+RULE 6: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
+RULE 7: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS top THEN verticalSpeed IS positive;
+RULE 8: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS middle THEN verticalSpeed IS zero;
+RULE 9: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS bottom THEN verticalSpeed IS zero;
+RULE 10: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
+RULE 11: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
+RULE 12: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS top THEN verticalSpeed IS zero;
+RULE 13: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS middle THEN verticalSpeed IS positive;
+RULE 14: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS bottom THEN verticalSpeed IS zero;
+RULE 15: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
+RULE 16: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
+RULE 17: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS top THEN verticalSpeed IS zero;
+RULE 18: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS middle THEN verticalSpeed IS zero;
+RULE 19: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS bottom THEN verticalSpeed IS negative;
+RULE 20: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
+RULE 21: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
+RULE 22: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS top THEN verticalSpeed IS zero;
+RULE 23: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS middle THEN verticalSpeed IS zero;
+RULE 24: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS bottom THEN verticalSpeed IS zero;
+RULE 25: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS negative;
+
+RULE 26: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS positiveBig;
+RULE 27: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS top THEN verticalSpeed IS negativeBig;
+RULE 28: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS middle THEN verticalSpeed IS zero;
+RULE 29: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS bottom THEN verticalSpeed IS zero;
+RULE 30: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryTop AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
+RULE 31: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
+RULE 32: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS top THEN verticalSpeed IS positiveBig;
+RULE 33: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS middle THEN verticalSpeed IS zero;
+RULE 34: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS bottom THEN verticalSpeed IS zero;
+RULE 35: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
+RULE 36: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
+RULE 37: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS top THEN verticalSpeed IS zero;
+RULE 38: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS middle THEN verticalSpeed IS positiveBig;
+RULE 39: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS bottom THEN verticalSpeed IS zero;
+RULE 40: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
+RULE 41: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
+RULE 42: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS top THEN verticalSpeed IS zero;
+RULE 43: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS middle THEN verticalSpeed IS zero;
+RULE 44: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS bottom THEN verticalSpeed IS negativeBig;
+RULE 45: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
+RULE 46: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
+RULE 47: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS top THEN verticalSpeed IS zero;
+RULE 48: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS middle THEN verticalSpeed IS zero;
+RULE 49: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS bottom THEN verticalSpeed IS zero;
+RULE 50: IF horizontalDistanceToMob IS small AND verticalPositionOfWizard IS veryBottom AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS negativeBig;
+
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
