@@ -1,4 +1,3 @@
 # Fuzzy-Logic-Controller
-Fuzzy Logic Controller for AI obstacle avoidance in a 2D game
 
-Fairly Simple FCL used to avoid obstacles in a demo level of an earlier game project.
+Fairly Simple OAFLC used to avoid enemy monsters by player avatar in a demo level of an earlier 2D game project.

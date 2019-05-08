@@ -60,7 +60,7 @@ RULE 9: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS top
 RULE 10: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS top AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
 RULE 11: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
 RULE 12: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS top THEN verticalSpeed IS zero;
-RULE 13: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS middle THEN verticalSpeed IS positive;
+RULE 13: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS middle THEN verticalSpeed IS positiveBig;
 RULE 14: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS bottom THEN verticalSpeed IS zero;
 RULE 15: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS middle AND verticalPositionOfMob IS veryBottom THEN verticalSpeed IS zero;
 RULE 16: IF horizontalDistanceToMob IS medium AND verticalPositionOfWizard IS bottom AND verticalPositionOfMob IS veryTop THEN verticalSpeed IS zero;
